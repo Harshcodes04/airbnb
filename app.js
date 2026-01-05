@@ -1,7 +1,7 @@
 const express = require("express");
 const path = require("path");
-const userRouter = require("./routes/userRouter");
-const { hostRouter } = require("./routes/hostRouter");
+const storeRouter = require("./routes/storeRouter");
+const hostRouter = require("./routes/hostRouter");
 const app = express();
 const errorsController = require("./controllers/errors");
 app.set("view engine", "ejs");
@@ -10,7 +10,7 @@ app.set("views", "views");
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use(express.urlencoded());
-app.use(userRouter);
+app.use(storeRouter);
 app.use("/host", hostRouter);
 
 app.use(errorsController.notFound);

@@ -2,9 +2,20 @@ const Home = require("../models/homes");
 const registeredHomes = [];
 
 exports.getAddHome = (req, res, next) => {
-  res.render("add-home", { pageTitle: "Add Home", currentPage: "add-home" });
+  res.render("host/add-home", {
+    pageTitle: "Add Home",
+    currentPage: "add-home",
+  });
 };
 
+exports.getHostHomes = (req, res, next) => {
+  const registeredHomes = Home.fetchAll((registeredHomes) => {
+    res.render("host/host-home-list", {
+      registeredHomes: registeredHomes,
+      pageTitle: "Host Homes list",
+    });
+  });
+};
 exports.postAddHome = (req, res, next) => {
   console.log(req.method, req.url, req.body);
   const { houseName, price, address, rating, photoUrl } = req.body;
@@ -17,14 +28,5 @@ exports.postAddHome = (req, res, next) => {
     rating: req.body.rating,
     photoUrl: req.body.photoUrl,
   });
-  res.render("sHome", { pageTitle: "Home added successfully" });
-};
-
-exports.getHomes = (req, res, next) => {
-  const registeredHomes = Home.fetchAll((registeredHomes) => {
-    res.render("home", {
-      registeredHomes: registeredHomes,
-      pageTitle: "Airbnb Home",
-    });
-  });
+  res.render("host/sHome", { pageTitle: "Home added successfully" });
 };

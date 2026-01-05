@@ -1,0 +1,63 @@
+<%- include('../partials/head') %>
+</head>
+
+<body class="bg-gray-100">
+  <%- include('../partials/nav') %>
+
+  <main class="container mx-auto px-6 py-10">
+    <h2 class="text-5xl font-bold text-gray-900 mb-2">
+      Favourites
+    </h2>
+    <p class="text-gray-600 mb-8 text-2xl">
+      Here are your favourites:
+    </p>
+
+    <div class="flex flex-wrap">
+      <% registeredHomes.forEach(home => { %>
+      <div
+        class="bg-white rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden flex flex-col w-80 h-96 shrink-0 mr-4 mb-4"
+      >
+        <div class="w-full h-55 shrink-0 overflow-hidden">
+          <img
+            src="<%= home.photoUrl %>"
+            alt="<%= home.houseName %>"
+            class="w-full h-full object-cover"
+          />
+        </div>
+
+        <div class="p-5 flex flex-col gap-3 flex-1">
+          <h3 class="text-xl font-bold text-gray-900 truncate">
+            <%= home.houseName %>
+          </h3>
+
+          <p class="text-sm text-gray-600 line-clamp-2 flex-1">
+            <%= home.address %>
+          </p>
+
+          <div class="mt-auto flex justify-between items-center pt-2 border-t border-gray-100">
+            <div class="flex flex-col">
+              <span class="text-lg font-bold text-gray-900">
+                ₹<%= home.price %>
+              </span>
+              <span class="text-xs text-gray-500">per night</span>
+            </div>
+            <div class="flex items-center gap-1">
+              
+            <button class="bg-red-500 hover:bg-red-600 text-white px-5 py-2 text-lg rounded-4xl transition">Book</button>
+
+            </div>
+
+            <div class="flex items-center gap-1">
+              <span class="text-lg">⭐</span>
+              <span class="text-base font-semibold text-gray-900">
+                <%= home.ratings %>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% }) %>
+    </div>
+  </main>
+</body>
+</html>

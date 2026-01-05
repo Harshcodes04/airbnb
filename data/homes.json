@@ -1,9 +1,1 @@
-[
-  {
-    "houseName": "House 1",
-    "price": "555",
-    "address": "Haldwani,India",
-    "ratings": "5",
-    "photoUrl": "https://th.bing.com/th/id/OIP.yn8B_oITTGwQE3Fl9L7XYAHaFl?w=226&h=180&c=7&r=0&o=7&pid=1.7&rm=3"
-  }
-]
+[{"houseName":"House 1","price":"555","address":"Haldwani,India","ratings":"5","photoUrl":"https://th.bing.com/th/id/OIP.yn8B_oITTGwQE3Fl9L7XYAHaFl?w=226&h=180&c=7&r=0&o=7&pid=1.7&rm=3"},{"houseName":"Aashirvaad Sadan 7","price":"999","address":"usa cia","ratings":"5","photoUrl":"https://th.bing.com/th/id/OIP.yn8B_oITTGwQE3Fl9L7XYAHaFl?w=226&h=180&c=7&r=0&o=7&pid=1.7&rm=3"}]
