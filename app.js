@@ -1,21 +1,20 @@
 const express = require("express");
-const path = require("path");
-const storeRouter = require("./routes/storeRouter");
-const hostRouter = require("./routes/hostRouter");
 const app = express();
-const errorsController = require("./controllers/errors");
-app.set("view engine", "ejs");
-app.set("views", "views");
+const userRouter = require("./routes/userRouter");
+const hostRouter = require("./routes/hostRouter");
+const path = require("path");
+const rootDir = require("./utils/pathUtil");
 
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(rootDir, "public")));
 
-app.use(express.urlencoded());
-app.use(storeRouter);
+app.use(express.urlencoded({ extended: true }));
+app.use(userRouter);
 app.use("/host", hostRouter);
 
-app.use(errorsController.notFound);
-
-const PORT = 5000;
-app.listen(PORT, () => {
-  console.log(`Server is running at http://localhost:${PORT}`);
+app.use((req, res, next) => {
+  res.status(404).sendFile(path.join(rootDir, "views", "404.html"));
+});
+const Port = 5001;
+app.listen(Port, () => {
+  console.log(`Server is running on port ${Port} http://localhost:${Port}`);
 });

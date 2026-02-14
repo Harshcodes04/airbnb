@@ -1,15 +1,16 @@
 {
   "name": "airbnb",
   "version": "1.0.0",
-  "description": "This is kind of a project",
-  "license": "ISC",
-  "author": "Harsh",
-  "type": "commonjs",
+  "description": "",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js & npx tailwindcss -i ./views/input.css -o ./public/output.css --watch"
+    "start": "nodemon app.js"
   },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
   "dependencies": {
     "@tailwindcss/cli": "^4.1.18",
     "body-parser": "^2.2.1",
