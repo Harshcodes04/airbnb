@@ -7,10 +7,17 @@ hostRouter.get("/add-home", (req, res, next) => {
   console.log(req.url, req.method);
   res.sendFile(path.join(rootDir, "views", "addHome.html"));
 });
+
+const registeredHomes = [];
+
 hostRouter.post("/add-home", (req, res, next) => {
   console.log(req.url, req.method);
-  console.log(req.body);
+  console.log(req.body, req.body.houseName);
+
+  registeredHomes.push({ houseName: req.body.houseName });
+
   res.sendFile(path.join(rootDir, "views", "homeAdded.html"));
 });
 
-module.exports = hostRouter;
+exports.hostRouter = hostRouter;
+exports.registeredHomes = registeredHomes;
