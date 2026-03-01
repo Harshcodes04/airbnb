@@ -3,22 +3,29 @@
     <%- include ('partials/nav')%>
 
     <main
-      class="flex-grow container mx-auto px-4 py-8 flex flex-col items-center justify-center"
+      class="grow container mx-auto px-4 py-8 flex flex-col items-center justify-center relative overflow-hidden min-h-[70vh]"
     >
-      <div
-        class="text-center bg-white p-10 rounded-lg shadow-sm border border-gray-100 max-w-md w-full"
-      >
-        <h1 class="text-4xl font-bold text-airbnb mb-2">404</h1>
-        <p class="text-xl text-gray-800 font-medium mb-4">Page Not Found</p>
-        <p class="text-gray-600 mb-8">
-          The page you're looking for doesn't exist.
+      <!-- Giant background 404 text -->
+      <div class="absolute inset-0 flex items-center justify-center pointer-events-none z-0 opacity-[0.03]">
+        <span class="text-[50vw] font-black tracking-tighter text-[#FF385C]">404</span>
+      </div>
+
+      <div class="z-10 text-center max-w-lg mt-8 mb-16 px-6">
+        <div class="text-[#FF385C] mb-6 inline-block bg-red-50 p-4 rounded-full">
+          <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" focusable="false" style="display: block; height: 48px; width: 48px; fill: currentColor;"><path d="M16 1.98a12 12 0 0 0-11.97 12c0 8.01 11.45 15.7 11.66 15.84a.5.5 0 0 0 .62 0c.2-.14 11.66-7.83 11.66-15.84A12 12 0 0 0 16 1.98zm0 24.81c-4.48-3.66-10.97-10.35-10.97-14.83a11 11 0 0 1 21.94 0c0 4.48-6.49 11.17-10.97 14.83zm0-18.79a6 6 0 1 0 6 6 6 6 0 0 0-6-6zm0 11a5 5 0 1 1 5-5 5 5 0 0 1-5 5z"></path></svg>
+        </div>
+        
+        <h1 class="text-5xl font-extrabold text-gray-900 mb-4 tracking-tight">Oops! We can't find that space.</h1>
+        <p class="text-xl text-gray-500 mb-10 leading-relaxed">
+          Looks like you've ventured into uncharted territory. This page isn't anywhere on our map.
         </p>
 
         <a
           href="/"
-          class="inline-block bg-[#FF385C] hover:bg-[#d50027] text-white font-bold py-2 px-6 rounded-lg transition duration-200"
+          class="inline-flex items-center justify-center gap-2 bg-[#FF385C] hover:bg-[#d50027] text-white font-bold py-4 px-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
         >
-          Back to Home
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          Let's get you back home
         </a>
       </div>
     </main>
