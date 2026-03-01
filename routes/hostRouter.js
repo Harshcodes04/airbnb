@@ -5,18 +5,24 @@ const rootDir = require("../utils/pathUtil");
 
 hostRouter.get("/add-home", (req, res, next) => {
   console.log(req.url, req.method);
-  res.sendFile(path.join(rootDir, "views", "addHome.html"));
+  res.render("addHome", { pageTitle: "Add Home to airbnb" });
 });
 
 const registeredHomes = [];
 
 hostRouter.post("/add-home", (req, res, next) => {
   console.log(req.url, req.method);
-  console.log(req.body, req.body.houseName);
+  console.log(req.body);
 
-  registeredHomes.push({ houseName: req.body.houseName });
+  registeredHomes.push({
+    houseName: req.body.houseName,
+    price: req.body.price,
+    location: req.body.location,
+    rating: req.body.rating,
+    photoUrl: req.body.photoUrl,
+  });
 
-  res.sendFile(path.join(rootDir, "views", "homeAdded.html"));
+  res.render("homeAdded", { pageTitle: "Home Added Successfully" });
 });
 
 exports.hostRouter = hostRouter;

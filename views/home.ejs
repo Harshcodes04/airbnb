@@ -1,0 +1,76 @@
+<%-include ('partials/head') %>
+  
+  <body class="bg-gray-50 flex flex-col min-h-screen font-sans">
+    <%-include ('partials/nav') %>
+    
+    
+
+    <main class="grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
+      <div class="mb-8">
+        <h1 class="text-3xl font-semibold text-gray-900 tracking-tight">
+         Here are our Registered Homes :
+        </h1>
+      </div>
+
+      <% if (registeredHomes.length > 0) { %>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          <% registeredHomes.forEach(home => { %>
+            <div class="group cursor-pointer flex flex-col gap-3 border border-gray-200 rounded-2xl p-3 hover:shadow-md transition-shadow duration-200">
+              
+              <div class="w-full aspect-square sm:aspect-4/3 bg-gray-200 rounded-xl overflow-hidden relative">
+                <img 
+                  src="<%= home.photoUrl || 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&q=80&w=800' %>" 
+                  alt="<%= home.houseName %>"
+                  class="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  onerror="this.src='https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&q=80&w=800'"
+                >
+                
+              </div>
+              
+              
+              <div class="flex flex-col gap-0.5 relative px-1 pb-1">
+                
+                
+                <div class="flex justify-between items-start w-full pr-1">
+                  <span class="font-semibold text-gray-900 truncate max-w-[85%]"><%= home.location || 'Location missing' %></span>
+                  <div class="flex items-center gap-1 text-gray-900">
+                    <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" focusable="false" style="display: block; height: 12px; width: 12px; fill: #ffd700;"><path d="M15.094 1.579l-4.124 8.885-9.86 1.27a1 1 0 0 0-.542 1.736l7.293 6.565-1.965 9.852a1 1 0 0 0 1.483 1.061L16 25.951l8.625 4.997a1 1 0 0 0 1.482-1.06l-1.965-9.853 7.293-6.565a1 1 0 0 0-.541-1.735l-9.86-1.271-4.127-8.885a1 1 0 0 0-1.814 0z" fill-rule="evenodd"></path></svg>
+                    <span class="text-[15px]"><%= home.rating ? (Number(home.rating) > 5 ? '5.0' : Number(home.rating).toFixed(1)) : 'New' %></span>
+                  </div>
+                </div>
+
+            
+                <span class="text-gray-500 text-[15px] truncate block"><%= home.houseName %></span>
+                <% if(home.address) { %>
+                  <span class="text-gray-500 text-[15px] truncate block"><%= home.address %></span>
+                <% } %>
+                
+                
+                <div class="mt-1 flex items-baseline gap-1">
+                  <span class="font-semibold text-red-500 text-[15px]">₹<%= home.price || '0' %></span>
+                  <span class="text-red-500 font-semibold text-[15px]">/night</span>
+                </div>
+              </div>
+            </div>
+          <% }) %>
+        </div>
+      <% } else { %>
+        <div class="flex flex-col items-center justify-center text-center bg-white py-20 px-6 rounded-2xl border border-gray-100 shadow-sm mt-4">
+          <h2 class="text-xl font-semibold text-gray-900 mb-2">No homes registered yet</h2>
+          <p class="text-gray-500 mb-6">Be the first to add a beautiful home to our platform!</p>
+          <a href="/host/add-home" class="inline-block bg-[#FF385C] hover:bg-[#d50027] text-white px-6 py-3 rounded-lg font-medium transition-colors">
+            Add a home
+          </a>
+        </div>
+      <% } %>
+    </main>
+
+    <footer class="bg-white border-t border-gray-200 mt-auto">
+      <div class="max-w-7xl mx-auto py-6 px-4">
+        <p class="text-center text-gray-400 text-sm">
+          &copy; Randomass Airbnb Clone
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>
