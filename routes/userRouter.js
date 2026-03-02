@@ -1,15 +1,8 @@
 const express = require("express");
-const path = require("path");
 const userRouter = express.Router();
-const { registeredHomes } = require("./hostRouter");
 const { register } = require("module");
+const homesController = require("../controllers/homes");
 
-userRouter.get("/", (req, res, next) => {
-  res.render("home", {
-    registeredHomes: registeredHomes,
-    pageTitle: "airbnb Home",
-  });
-  console.log(registeredHomes);
-});
+userRouter.get("/", homesController.getHomes);
 
 module.exports = userRouter;
