@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
-const userRouter = require("./routes/userRouter");
-const { hostRouter } = require("./routes/hostRouter");
+const storeRouter = require("./routes/storeRouter");
+const hostRouter = require("./routes/hostRouter");
 const path = require("path");
 const rootDir = require("./utils/pathUtil");
 const err404 = require("./controllers/404");
@@ -12,7 +12,7 @@ app.set("views", "views");
 app.use(express.static(path.join(rootDir, "public")));
 
 app.use(express.urlencoded({ extended: true }));
-app.use(userRouter);
+app.use(storeRouter);
 app.use("/host", hostRouter);
 
 app.use(err404.Controller404);
