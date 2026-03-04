@@ -33,3 +33,18 @@ exports.getfavouriteList = (req, res, next) => {
     });
   });
 };
+
+exports.getHomeDetails = (req, res, next) => {
+  const homeId = req.params.homeId;
+  Home.findById(homeId, (home) => {
+    if (!home) {
+      res.redirect("/homes");
+      console.log("Home not found for ID:", homeId);
+    } else {
+      res.render("store/home-detail", {
+        pageTitle: "Home detail",
+        home: home,
+      });
+    }
+  });
+};
