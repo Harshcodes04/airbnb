@@ -1,75 +1,110 @@
-<%-include ('../partials/head') %>
-  
+<%- include('../partials/head') %>
+
   <body class="bg-gray-50 flex flex-col min-h-screen font-sans">
-    <%-include ('../partials/nav') %>
-    
-    
+    <%- include('../partials/nav') %>
 
     <main class="grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
-      <div class="mb-8">
-        <h1 class="text-3xl font-semibold text-gray-900 tracking-tight">
-         Here are your Favourites :
-        </h1>
+      <!-- Page Header -->
+      <div class="mb-10 flex items-center gap-3">
+        <div class="w-12 h-12 bg-gradient-to-br from-[#FF385C] to-[#E31C5F] rounded-2xl flex items-center justify-center shadow-lg shadow-red-200">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z"/>
+          </svg>
+        </div>
+        <div>
+          <h1 class="text-3xl font-bold text-gray-900 tracking-tight">Your Favourites</h1>
+          <% if (favouriteHomes.length > 0) { %>
+            <p class="text-gray-500 text-sm mt-0.5"><%= favouriteHomes.length %> saved home<%= favouriteHomes.length > 1 ? 's' : '' %></p>
+          <% } %>
+        </div>
       </div>
 
-      <% if (registeredHomes.length > 0) { %>
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          <% registeredHomes.forEach(home => { %>
-            <div class="group cursor-pointer flex flex-col gap-3 border border-gray-200 rounded-2xl p-3 hover:shadow-md transition-shadow duration-200">
+      <% if (favouriteHomes.length > 0) { %>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <% favouriteHomes.forEach(home => { %>
+            <div class="group bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-gray-200 hover:-translate-y-1">
               
-              <div class="w-full aspect-square sm:aspect-4/3 bg-gray-200 rounded-xl overflow-hidden relative">
+              <!-- Image Section -->
+              <div class="relative w-full aspect-[4/3] overflow-hidden">
                 <img 
                   src="<%= home.photoUrl || 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&q=80&w=800' %>" 
                   alt="<%= home.houseName %>"
-                  class="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 ease-out"
                   onerror="this.src='https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&q=80&w=800'"
                 >
-                
+                <!-- Favourite Badge -->
+                <div class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-full p-2 shadow-md">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-[#FF385C]" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z"/>
+                  </svg>
+                </div>
+                <!-- Price Tag -->
+                <div class="absolute bottom-4 left-4 bg-white/95 backdrop-blur-sm rounded-xl px-3 py-1.5 shadow-md">
+                  <span class="font-bold text-[#FF385C] text-lg">₹<%= home.price || '0' %></span>
+                  <span class="text-gray-500 text-sm">/night</span>
+                </div>
               </div>
-              
-              
-              <div class="flex flex-col gap-0.5 relative px-1 pb-1">
-                
-                
-                <div class="flex justify-between items-start w-full pr-1">
-                  <span class="font-semibold text-gray-900 truncate max-w-[85%]"><%= home.location || 'Location missing' %></span>
-                  <div class="flex items-center gap-1 text-gray-900">
-                    <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" focusable="false" style="display: block; height: 12px; width: 12px; fill: #ffd700;"><path d="M15.094 1.579l-4.124 8.885-9.86 1.27a1 1 0 0 0-.542 1.736l7.293 6.565-1.965 9.852a1 1 0 0 0 1.483 1.061L16 25.951l8.625 4.997a1 1 0 0 0 1.482-1.06l-1.965-9.853 7.293-6.565a1 1 0 0 0-.541-1.735l-9.86-1.271-4.127-8.885a1 1 0 0 0-1.814 0z" fill-rule="evenodd"></path></svg>
-                    <span class="text-[15px]"><%= home.rating ? (Number(home.rating) > 5 ? '5.0' : Number(home.rating).toFixed(1)) : 'New' %></span>
+
+              <!-- Content Section -->
+              <div class="p-5">
+                <!-- Location & Rating -->
+                <div class="flex justify-between items-start mb-2">
+                  <h3 class="font-bold text-gray-900 text-lg truncate max-w-[75%]"><%= home.location || 'Location missing' %></h3>
+                  <div class="flex items-center gap-1 bg-gray-50 px-2 py-1 rounded-lg shrink-0">
+                    <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" style="fill: #ffd700;">
+                      <path d="M15.094 1.579l-4.124 8.885-9.86 1.27a1 1 0 0 0-.542 1.736l7.293 6.565-1.965 9.852a1 1 0 0 0 1.483 1.061L16 25.951l8.625 4.997a1 1 0 0 0 1.482-1.06l-1.965-9.853 7.293-6.565a1 1 0 0 0-.541-1.735l-9.86-1.271-4.127-8.885a1 1 0 0 0-1.814 0z" fill-rule="evenodd"></path>
+                    </svg>
+                    <span class="text-sm font-semibold text-gray-700"><%= home.rating ? (Number(home.rating) > 5 ? '5.0' : Number(home.rating).toFixed(1)) : 'New' %></span>
                   </div>
                 </div>
 
-            
-                <span class="text-gray-500 text-[15px] truncate block"><%= home.houseName %></span>
+                <!-- House Name -->
+                <p class="text-gray-500 text-[15px] truncate mb-1"><%= home.houseName %></p>
                 <% if(home.address) { %>
-                  <span class="text-gray-500 text-[15px] truncate block"><%= home.address %></span>
+                  <p class="text-gray-400 text-sm truncate mb-4"><%= home.address %></p>
+                <% } else { %>
+                  <div class="mb-4"></div>
                 <% } %>
-                
-                
-                <div class="mt-1 flex items-baseline gap-1">
-                  <span class="font-semibold text-red-500 text-[15px]">₹<%= home.price || '0' %></span>
-                  <span class="text-red-500 font-semibold text-[15px]">/night</span>
-                </div>
-                <div class="mt-3">
-                  <button class="w-full bg-[#FF385C] hover:bg-[#d50027] text-white font-semibold py-2 px-4 rounded-lg transition-colors">
-                    Book
-                  </button>
+
+                <!-- Action Buttons -->
+                <div class="flex gap-3">
+                  <a href="/homes/<%= home.id %>" class="flex-1 text-center bg-gray-900 hover:bg-gray-800 text-white font-semibold py-2.5 rounded-xl text-sm transition-colors">
+                    View Details
+                  </a>
+                  <form action="/favourites/remove" method="POST" class="flex-1">
+                    <button
+                      type="submit"
+                      class="w-full bg-white hover:bg-red-50 text-[#FF385C] font-semibold py-2.5 rounded-xl text-sm transition-colors border-2 border-[#FF385C] hover:border-[#d50027] hover:text-[#d50027]"
+                    >
+                      Remove
+                    </button>
+                    <input type="hidden" name="id" value="<%= home.id %>" />
+                  </form>
                 </div>
               </div>
             </div>
           <% }) %>
         </div>
       <% } else { %>
-        <div class="flex flex-col items-center justify-center text-center bg-white py-20 px-6 rounded-2xl border border-gray-100 shadow-sm mt-4">
-          <h2 class="text-xl font-semibold text-gray-900 mb-2">No homes registered yet</h2>
-          <p class="text-gray-500 mb-6">Be the first to add a beautiful home to our platform!</p>
-          <a href="/host/add-home" class="inline-block bg-[#FF385C] hover:bg-[#d50027] text-white px-6 py-3 rounded-lg font-medium transition-colors">
-            Add a home
+        <!-- Empty State -->
+        <div class="flex flex-col items-center justify-center text-center py-24 px-6">
+          <div class="w-24 h-24 bg-gradient-to-br from-red-50 to-pink-50 rounded-full flex items-center justify-center mb-6">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 text-[#FF385C]/40" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z"/>
+            </svg>
+          </div>
+          <h2 class="text-2xl font-bold text-gray-900 mb-2">No favourites yet</h2>
+          <p class="text-gray-500 mb-8 max-w-md">Explore our homes and tap the heart to save the ones you love. They'll show up right here!</p>
+          <a href="/homes" class="inline-flex items-center gap-2 bg-gradient-to-r from-[#FF385C] to-[#E31C5F] hover:from-[#E31C5F] hover:to-[#c4173f] text-white px-8 py-3.5 rounded-full font-semibold shadow-lg shadow-red-200 hover:shadow-red-300 transition-all duration-200 hover:-translate-y-0.5">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+            </svg>
+            Explore Homes
           </a>
         </div>
       <% } %>
     </main>
 
-   <%- include ('../partials/footer') %>
+    <%- include('../partials/footer') %>
   </body>
 </html>
