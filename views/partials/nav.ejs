@@ -13,40 +13,40 @@
         </div>
 
         <!-- Navigation Links -->
-        <div class="flex items-center gap-6">
+        <div class="flex items-center gap-6" id="nav-links">
           <a
             href="/"
-            class="text-white hover:text-[#FF385C] hover:bg-white px-4 py-2 rounded-full font-semibold transition-all duration-200"
+            class="nav-link text-white hover:text-[#FF385C] hover:bg-white px-4 py-2 rounded-full font-semibold transition-all duration-200"
           >
             Home
           </a>
           <a
             href="/host/add-home"
-            class="text-white bg-white/20 hover:bg-white hover:text-[#FF385C] px-5 py-2.5 rounded-full font-bold shadow-sm transition-all duration-200"
+            class="nav-link text-white bg-white/20 hover:bg-white hover:text-[#FF385C] px-5 py-2.5 rounded-full font-bold shadow-sm transition-all duration-200"
           >
             Add Home
           </a>
           <a
             href="/bookings"
-            class="text-white hover:text-[#FF385C] hover:bg-white px-4 py-2 rounded-full font-semibold transition-all duration-200"
+            class="nav-link text-white hover:text-[#FF385C] hover:bg-white px-4 py-2 rounded-full font-semibold transition-all duration-200"
           >
             Bookings
           </a>
           <a
             href="/favourites"
-            class="text-white hover:text-[#FF385C] hover:bg-white px-4 py-2 rounded-full font-semibold transition-all duration-200"
+            class="nav-link text-white hover:text-[#FF385C] hover:bg-white px-4 py-2 rounded-full font-semibold transition-all duration-200"
           >
             Favourites
           </a>
           <a
             href="/host/host-home-list"
-            class="text-white hover:text-[#FF385C] hover:bg-white px-4 py-2 rounded-full font-semibold transition-all duration-200"
+            class="nav-link text-white hover:text-[#FF385C] hover:bg-white px-4 py-2 rounded-full font-semibold transition-all duration-200"
           >
             Host Homes list
           </a>
           <a
             href="/homes"
-            class="text-white hover:text-[#FF385C] hover:bg-white px-4 py-2 rounded-full font-semibold transition-all duration-200"
+            class="nav-link text-white hover:text-[#FF385C] hover:bg-white px-4 py-2 rounded-full font-semibold transition-all duration-200"
           >
             Homes list
           </a>
@@ -55,3 +55,32 @@
     </div>
   </nav>
 </header>
+
+<style>
+  .nav-link.active {
+    background-color: white !important;
+    color: #FF385C !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+</style>
+
+<script>
+  (function () {
+    const path = window.location.pathname;
+    const links = document.querySelectorAll('#nav-links .nav-link');
+
+    links.forEach(link => {
+      const href = link.getAttribute('href');
+
+      // Exact match for home page "/"
+      if (href === '/') {
+        if (path === '/') link.classList.add('active');
+      } else {
+        // Prefix match for all other routes
+        if (path === href || path.startsWith(href + '/')) {
+          link.classList.add('active');
+        }
+      }
+    });
+  })();
+</script>

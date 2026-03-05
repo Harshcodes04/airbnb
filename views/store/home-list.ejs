@@ -8,7 +8,7 @@
     <main class="grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
       <div class="mb-8">
         <h1 class="text-3xl font-semibold text-gray-900 tracking-tight">
-         Here are our Registered Homes :
+         Here are our registered homes!:
         </h1>
       </div>
 
@@ -52,9 +52,7 @@
                 </div>
                 <div class="mt-3">
                   <div class="mt-3 flex flex-col gap-2">
-                  <button class="w-full bg-[#FF385C] hover:bg-[#d50027] text-white font-semibold py-2 px-4 rounded-lg transition-colors">
-                   Book
-                   </button>
+                  <%- include('../partials/favourites', { home: home }) %>
                  <a href="/homes/<%=home.id%>" class="w-full block bg-[#FF385C] hover:bg-[#d50027] text-white font-semibold py-2 px-4 rounded-lg transition-colors text-center">
                     Details
                    </a>

@@ -34,6 +34,11 @@ exports.getfavouriteList = (req, res, next) => {
   });
 };
 
+exports.postAddTofavourite = (req, res, next) => {
+  console.log("Received request to add home to favourites with ID:", req.body);
+  res.redirect("/favourites");
+};
+
 exports.getHomeDetails = (req, res, next) => {
   const homeId = req.params.homeId;
   Home.findById(homeId, (home) => {
