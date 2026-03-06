@@ -51,12 +51,18 @@
                   <span class="text-red-500 font-semibold text-[15px]">/night</span>
                 </div>
                 <div class="mt-3 flex gap-2">
-                  <button class="flex-1 bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 font-semibold py-2 px-4 rounded-lg transition-colors">
+                  <a href="/host/edit-home/<%= home.id %>?editing=true" class="flex-1 bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 font-semibold py-2 px-4 rounded-lg transition-colors">
                     Edit
-                  </button>
-                  <button class="flex-1 bg-white border border-red-500 text-red-500 hover:bg-red-50 hover:text-red-600 font-semibold py-2 px-4 rounded-lg transition-colors">
-                    Delete
-                  </button>
+                  </a>
+                  <form action="/host/remove-home" method="POST" class="flex-1">
+                    <button
+                      type="submit"
+                      class="w-full bg-white hover:bg-red-50 text-[#FF385C] font-semibold py-2.5 rounded-xl text-sm transition-colors border-2 border-[#FF385C] hover:border-[#d50027] hover:text-[#d50027]"
+                    >
+                      Remove
+                    </button>
+                    <input type="hidden" name="id" value="<%= home.id %>" />
+                  </form>
                 </div>
               </div>
             </div>

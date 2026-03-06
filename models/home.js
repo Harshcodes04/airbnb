@@ -13,9 +13,18 @@ module.exports = class Home {
 
   //Writting the home data to a json file in the data folder so that we can persist the data even if we restart the server
   save() {
-    this.id = Math.random().toString();
     Home.fetchAll((registeredHomes) => {
-      registeredHomes.push(this);
+      if (this.id) {
+        ///edit home case
+
+        registeredHomes = registeredHomes.map((home) =>
+          home.id === this.id ? this : home,
+        );
+      } else {
+        this.id = Math.random().toString();
+        registeredHomes.push(this);
+      }
+
       fs.writeFile(homeDataPath, JSON.stringify(registeredHomes), (err) => {
         if (err) {
           console.log("Error writing home data to file:", err);
@@ -46,6 +55,18 @@ module.exports = class Home {
     this.fetchAll((homes) => {
       const homeFound = homes.find((home) => home.id === homeId);
       callback(homeFound);
+    });
+  }
+
+  static removeHostHome(homeId, callback) {
+    Home.fetchAll((homes) => {
+      const updatedHomes = homes.filter((home) => home.id !== homeId);
+      if (updatedHomes.length === homes.length) {
+        console.log("Home was not found.");
+        callback(null);
+      } else {
+        fs.writeFile(homeDataPath, JSON.stringify(updatedHomes), callback);
+      }
     });
   }
 };
