@@ -36,7 +36,7 @@
                   name="houseName"
                   id="houseName"
                   value="<%= editing ? home.houseName : '' %>"
-                  placeholder=" "
+                  placeholder="Name of your house "
                   required
                   class="peer w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-2xl focus:outline-none focus:bg-white input-glow text-gray-900 font-medium placeholder-transparent transition-all"
                 />
@@ -52,7 +52,7 @@
                   name="location"
                   id="location"
                   value="<%= editing ? home.location : '' %>"
-                  placeholder=" "
+                  placeholder=" Location of your house"
                   required
                   class="peer w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-2xl focus:outline-none focus:bg-white input-glow text-gray-900 font-medium placeholder-transparent transition-all"
                 />
@@ -73,7 +73,7 @@
                   name="price"
                   id="price"
                   value="<%= editing ? home.price : '' %>"
-                  placeholder=" "
+                  placeholder=" Price per night"
                   required
                   step="0.01"
                   min="0"
@@ -94,7 +94,7 @@
                   name="rating"
                   id="rating"
                   value="<%= editing ? home.rating : '' %>"
-                  placeholder=" "
+                  placeholder=" Rating (0-5)"
                   required
                   step="0.1"
                   min="0"
@@ -114,13 +114,27 @@
                 name="photoUrl"
                 id="photoUrl"
                 value="<%= editing ? home.photoUrl : '' %>"
-                placeholder=" "
+                placeholder="URL to a high-resolution photo of your home"
                 required
                 class="peer w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-2xl focus:outline-none focus:bg-white input-glow text-gray-900 font-medium placeholder-transparent transition-all"
               />
               <label for="photoUrl" class="absolute left-5 top-4 text-gray-400 font-medium transition-all peer-placeholder-shown:text-[16px] peer-placeholder-shown:top-4 peer-focus:-top-2.5 peer-focus:text-xs peer-focus:text-[#FF385C] peer-focus:bg-white peer-focus:px-1 peer-valid:-top-2.5 peer-valid:text-xs peer-valid:bg-white peer-valid:px-1 z-10 rounded">
                 High-Resolution Photo URL
               </label>
+            <div class="relative group">
+              <textarea
+                type="text"
+                name="description"
+                id="description"
+                
+                placeholder="Describe your home"
+                required
+                class="peer w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-2xl focus:outline-none focus:bg-white input-glow text-gray-900 font-medium placeholder-transparent transition-all mt-5"
+              ><%= editing ? home.description : '' %></textarea>
+              <label for="description" class="absolute left-5 top-4 text-gray-400 font-medium transition-all peer-placeholder-shown:text-[16px] peer-placeholder-shown:top-4 peer-focus:-top-2.5 peer-focus:text-xs peer-focus:text-[#FF385C] peer-focus:bg-white peer-focus:px-1 peer-valid:-top-2.5 peer-valid:text-xs peer-valid:bg-white peer-valid:px-1 z-10 rounded mt-5">
+                Describe your home
+              </label>
+              
             </div>
             
           </div>

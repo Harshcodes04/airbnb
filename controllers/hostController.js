@@ -9,8 +9,16 @@ exports.getAddHome = (req, res, next) => {
 };
 exports.postAddHome = (req, res, next) => {
   console.log(req.body);
-  const { houseName, price, location, rating, photoUrl } = req.body;
-  const home = new Home(houseName, price, location, rating, photoUrl);
+  const { houseName, price, location, rating, photoUrl, description } =
+    req.body;
+  const home = new Home(
+    houseName,
+    price,
+    location,
+    rating,
+    photoUrl,
+    description,
+  );
   home.save();
   res.redirect("/host/host-home-list");
 };
@@ -19,7 +27,8 @@ exports.getEditHome = (req, res, next) => {
   const homeId = req.params.homeId;
   const editing = req.query.editing === "true";
 
-  Home.findById(homeId, (home) => {
+  Home.findById(homeId).then(([homes]) => {
+    const home = homes[0];
     if (!home) {
       console.log("Home not found with ID for editing:", homeId);
       return res.redirect("/host/host-home-list");
@@ -37,15 +46,23 @@ exports.getEditHome = (req, res, next) => {
 };
 exports.postEditHome = (req, res, next) => {
   console.log(req.body);
-  const { id, houseName, price, location, rating, photoUrl } = req.body;
-  const home = new Home(houseName, price, location, rating, photoUrl);
-  home.id = id;
+  const { id, houseName, price, location, rating, photoUrl, description } =
+    req.body;
+  const home = new Home(
+    houseName,
+    price,
+    location,
+    rating,
+    photoUrl,
+    description,
+    id,
+  );
   home.save();
   res.redirect("/host/host-home-list");
 };
 
 exports.getHostHomes = (req, res, next) => {
-  Home.fetchAll((registeredHomes) => {
+  Home.fetchAll().then(([registeredHomes]) => {
     res.render("host/host-home-list", {
       registeredHomes: registeredHomes,
       pageTitle: "Host Homes list",
@@ -55,11 +72,11 @@ exports.getHostHomes = (req, res, next) => {
 
 exports.postRemoveHostHome = (req, res, next) => {
   console.log("Received request to remove home with ID:", req.body);
-  Home.removeHostHome(req.body.id, (err) => {
-    if (err) {
-      console.error("Error removing home:", err);
-    } else {
+  Home.removeHostHome(req.body.id)
+    .then(() => {
       res.redirect("/host/host-home-list");
-    }
-  });
+    })
+    .catch((err) => {
+      console.error("Error removing home:", err);
+    });
 };
