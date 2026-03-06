@@ -1,64 +1,89 @@
-<%-include ('../partials/head') %>
+<%- include ('../partials/head') %>
   
-  <body class="bg-gray-50 flex flex-col min-h-screen font-sans">
+  <body class="bg-[#f8f9fa] flex flex-col min-h-screen">
     <%-include ('../partials/nav') %>
     
-    
-
-    <main class="grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
-      <div class="mb-8">
-        <h1 class="text-3xl font-semibold text-gray-900 tracking-tight">
-         Hey host here are your homes!
-        </h1>
+    <main class="grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full mb-20">
+      
+      <!-- Page Header -->
+      <div class="mb-10 flex items-center justify-between border-b border-gray-200/60 pb-8 animate-fade-in-up">
+        <div class="flex items-center gap-4">
+          <div class="w-14 h-14 bg-gradient-to-br from-[#FF385C] to-[#E31C5F] rounded-2xl flex items-center justify-center shadow-lg shadow-red-200">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+              <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+          </div>
+          <div>
+            <h1 class="text-3xl sm:text-4xl font-extrabold text-gray-900 tracking-tight">
+              Host <span class="text-gradient">Homes</span>
+            </h1>
+            <p class="text-gray-500 font-medium text-[15px] mt-1">View, edit, or remove your hosted homes.</p>
+          </div>
+        </div>
+        
+        <div class="hidden sm:block">
+           <a href="/host/add-home" class="inline-flex items-center gap-2 bg-white border border-gray-200 hover:border-[#FF385C] hover:bg-red-50 text-gray-800 hover:text-[#FF385C] px-5 py-2.5 rounded-xl font-bold shadow-sm transition-all duration-300">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+            </svg>
+            Add New Home
+          </a>
+        </div>
       </div>
 
       <% if (registeredHomes.length > 0) { %>
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          <% registeredHomes.forEach(home => { %>
-            <div class="group cursor-pointer flex flex-col gap-3 border border-gray-200 rounded-2xl p-3 hover:shadow-md transition-shadow duration-200">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-10">
+          <% registeredHomes.forEach((home, index) => { %>
+            <div class="group flex flex-col gap-3 bg-white rounded-3xl p-3 card-glow animate-fade-in-up stagger-<%= (index % 4) + 1 %> border border-gray-100/80 relative transition-all">
               
-              <div class="w-full aspect-square sm:aspect-4/3 bg-gray-200 rounded-xl overflow-hidden relative">
+              <!-- Image Container -->
+              <div class="w-full aspect-[4/3] img-shimmer rounded-2xl overflow-hidden relative shadow-inner">
                 <img 
                   src="<%= home.photoUrl || 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&q=80&w=800' %>" 
                   alt="<%= home.houseName %>"
-                  class="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  class="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                  onload="this.parentElement.classList.remove('img-shimmer')"
                   onerror="this.src='https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&q=80&w=800'"
                 >
-                
+                <!-- Price Badge Overlay -->
+                <div class="absolute bottom-3 left-3 bg-white/95 backdrop-blur-md px-3 py-1.5 rounded-xl shadow-lg font-bold text-[#FF385C] text-[15px] z-10 flex items-center gap-1">
+                  ₹<%= home.price || '0' %> <span class="font-normal text-gray-500 text-xs mt-0.5">/night</span>
+                </div>
               </div>
               
-              
-              <div class="flex flex-col gap-0.5 relative px-1 pb-1">
+              <div class="flex flex-col gap-1 relative px-2 pb-2">
                 
-                
-                <div class="flex justify-between items-start w-full pr-1">
-                  <span class="font-semibold text-gray-900 truncate max-w-[85%]"><%= home.location || 'Location missing' %></span>
-                  <div class="flex items-center gap-1 text-gray-900">
-                    <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" focusable="false" style="display: block; height: 12px; width: 12px; fill: #ffd700;"><path d="M15.094 1.579l-4.124 8.885-9.86 1.27a1 1 0 0 0-.542 1.736l7.293 6.565-1.965 9.852a1 1 0 0 0 1.483 1.061L16 25.951l8.625 4.997a1 1 0 0 0 1.482-1.06l-1.965-9.853 7.293-6.565a1 1 0 0 0-.541-1.735l-9.86-1.271-4.127-8.885a1 1 0 0 0-1.814 0z" fill-rule="evenodd"></path></svg>
-                    <span class="text-[15px]"><%= home.rating ? (Number(home.rating) > 5 ? '5.0' : Number(home.rating).toFixed(1)) : 'New' %></span>
+                <!-- Location & Rating -->
+                <div class="flex justify-between items-start w-full">
+                  <h3 class="font-bold text-gray-900 text-lg lg:text-[17px] truncate max-w-[80%] leading-tight"><%= home.location || 'Location missing' %></h3>
+                  <div class="flex items-center gap-1 text-gray-900 bg-gray-50 px-2 rounded-lg py-1 border border-gray-100">
+                    <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" focusable="false" style="display: block; height: 11px; width: 11px; fill: #ffd700;"><path d="M15.094 1.579l-4.124 8.885-9.86 1.27a1 1 0 0 0-.542 1.736l7.293 6.565-1.965 9.852a1 1 0 0 0 1.483 1.061L16 25.951l8.625 4.997a1 1 0 0 0 1.482-1.06l-1.965-9.853 7.293-6.565a1 1 0 0 0-.541-1.735l-9.86-1.271-4.127-8.885a1 1 0 0 0-1.814 0z" fill-rule="evenodd"></path></svg>
+                    <span class="text-[13px] font-bold"><%= home.rating ? (Number(home.rating) > 5 ? '5.0' : Number(home.rating).toFixed(1)) : 'New' %></span>
                   </div>
                 </div>
 
-            
-                <span class="text-gray-500 text-[15px] truncate block"><%= home.houseName %></span>
+                <!-- Titles -->
+                <span class="text-gray-500 text-[15px] truncate block font-medium"><%= home.houseName %></span>
                 <% if(home.address) { %>
-                  <span class="text-gray-500 text-[15px] truncate block"><%= home.address %></span>
+                  <span class="text-gray-400 text-[14px] truncate block"><%= home.address %></span>
+                <% } else { %>
+                   <div style="height: 21px;"></div>
                 <% } %>
                 
-                
-                <div class="mt-1 flex items-baseline gap-1">
-                  <span class="font-semibold text-red-500 text-[15px]">₹<%= home.price || '0' %></span>
-                  <span class="text-red-500 font-semibold text-[15px]">/night</span>
-                </div>
-                <div class="mt-3 flex gap-2">
-                  <a href="/host/edit-home/<%= home.id %>?editing=true" class="flex-1 bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 font-semibold py-2 px-4 rounded-lg transition-colors">
+                <!-- Action Buttons: Edit / Remove -->
+                <div class="mt-4 pt-3 flex gap-2 border-t border-gray-100">
+                  <a href="/host/edit-home/<%= home.id %>?editing=true" class="flex-1 flex items-center justify-center gap-1.5 bg-gray-50 border border-gray-200 text-gray-700 hover:bg-gray-100 hover:border-gray-300 font-bold py-2.5 rounded-xl transition-all shadow-sm">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                    </svg>
                     Edit
                   </a>
                   <form action="/host/remove-home" method="POST" class="flex-1">
-                    <button
-                      type="submit"
-                      class="w-full bg-white hover:bg-red-50 text-[#FF385C] font-semibold py-2.5 rounded-xl text-sm transition-colors border-2 border-[#FF385C] hover:border-[#d50027] hover:text-[#d50027]"
-                    >
+                    <button type="submit" class="w-full flex items-center justify-center gap-1.5 bg-white hover:bg-red-50 text-[#FF385C] font-bold py-2.5 rounded-xl transition-all border border-[#FF385C]/30 hover:border-[#FF385C] shadow-sm">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                      </svg>
                       Remove
                     </button>
                     <input type="hidden" name="id" value="<%= home.id %>" />
@@ -69,11 +94,18 @@
           <% }) %>
         </div>
       <% } else { %>
-        <div class="flex flex-col items-center justify-center text-center bg-white py-20 px-6 rounded-2xl border border-gray-100 shadow-sm mt-4">
-          <h2 class="text-xl font-semibold text-gray-900 mb-2">No homes registered yet</h2>
-          <p class="text-gray-500 mb-6">Be the first to add a beautiful home to our platform!</p>
-          <a href="/host/add-home" class="inline-block bg-[#FF385C] hover:bg-[#d50027] text-white px-6 py-3 rounded-lg font-medium transition-colors">
-            Add a home
+        <!-- Empty State -->
+        <div class="flex flex-col items-center justify-center text-center bg-white py-24 px-6 rounded-3xl border border-gray-100 shadow-sm mt-4 relative overflow-hidden animate-fade-in-up">
+          <div class="w-24 h-24 bg-gradient-to-br from-red-50 to-pink-50 rounded-full flex items-center justify-center mb-6 animate-float">
+            <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" style="display: block; height: 48px; width: 48px; fill: #FF385C; opacity: 0.5;" aria-hidden="true" role="presentation" focusable="false"><path d="M16 1.98a12 12 0 0 0-11.97 12c0 8.01 11.45 15.7 11.66 15.84a.5.5 0 0 0 .62 0c.2-.14 11.66-7.83 11.66-15.84A12 12 0 0 0 16 1.98zm0 24.81c-4.48-3.66-10.97-10.35-10.97-14.83a11 11 0 0 1 21.94 0c0 4.48-6.49 11.17-10.97 14.83zm0-18.79a6 6 0 1 0 6 6 6 6 0 0 0-6-6zm0 11a5 5 0 1 1 5-5 5 5 0 0 1-5 5z"></path></svg>
+          </div>
+          <h2 class="text-2xl font-bold text-gray-900 mb-2">You haven't listed any homes yet</h2>
+          <p class="text-gray-500 mb-8 max-w-md mx-auto line-clamp-2">Start your hosting journey today. Add your first incredible space to our platform.</p>
+          <a href="/host/add-home" class="inline-flex items-center gap-2 bg-gradient-to-r from-[#FF385C] to-[#E31C5F] hover:from-[#E31C5F] hover:to-[#c4173f] text-white px-8 py-3.5 rounded-full font-bold shadow-lg shadow-red-200 hover:shadow-red-300 transition-all duration-300 hover:-translate-y-1">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+            </svg>
+            List a Space Now
           </a>
         </div>
       <% } %>

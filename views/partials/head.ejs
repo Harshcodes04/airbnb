@@ -4,6 +4,58 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%=pageTitle%></title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/output.css" />
-  </head>
+    <style>
+      body { font-family: 'Inter', system-ui, sans-serif; }
+      
+      /* Animations */
+      @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+      }
+      @keyframes shimmer {
+        0% { background-position: -1000px 0; }
+        100% { background-position: 1000px 0; }
+      }
+      
+      .animate-fade-in-up { animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+      .animate-float { animation: float 6s ease-in-out infinite; }
+      
+      .stagger-1 { animation-delay: 0.1s; }
+      .stagger-2 { animation-delay: 0.2s; }
+      .stagger-3 { animation-delay: 0.3s; }
+      .stagger-4 { animation-delay: 0.4s; }
 
+      /* Premium Utilities */
+      .card-glow { transition: all 0.3s ease; }
+      .card-glow:hover {
+        box-shadow: 0 20px 40px -15px rgba(255, 56, 92, 0.15), 0 10px 20px -10px rgba(0, 0, 0, 0.05);
+        transform: translateY(-4px);
+      }
+      
+      .img-shimmer {
+        background: linear-gradient(to right, #f6f7f8 4%, #edeef1 25%, #f6f7f8 36%);
+        background-size: 1000px 100%;
+        animation: shimmer 2s infinite linear;
+      }
+      
+      .text-gradient {
+        background: linear-gradient(135deg, #FF385C 0%, #E31C5F 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .input-glow:focus {
+        box-shadow: 0 0 0 4px rgba(255, 56, 92, 0.1);
+        border-color: #FF385C;
+      }
+    </style>
+  </head>
