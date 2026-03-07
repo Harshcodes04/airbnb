@@ -20,7 +20,7 @@ exports.getIndex = (req, res, next) => {
 
 exports.getbookings = (req, res, next) => {
   res.render("store/bookings", {
-    registeredHomes: registeredHomes,
+    // registeredHomes: registeredHomes,
     pageTitle: "Your Bookings",
   });
 };

@@ -39,7 +39,7 @@
         <div class="mb-12 relative rounded-[32px] overflow-hidden group shadow-xl shadow-gray-200/50 block animate-fade-in-up stagger-1">
           <div class="aspect-[16/9] md:aspect-[21/9] w-full img-shimmer relative">
             <img 
-              src="<%= home.photoUrl || 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&q=80&w=1200' %>" 
+              src="<%= home.photoUrl %>" 
               alt="<%= home.houseName %>"
               class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 ease-out"
               onload="this.parentElement.classList.remove('img-shimmer')"
