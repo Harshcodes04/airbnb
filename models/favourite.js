@@ -1,49 +1,30 @@
-const fs = require("fs");
-const path = require("path");
-const rootDir = require("../utils/pathUtil");
-const { register } = require("module");
-const favouriteDataPath = path.join(rootDir, "data", "favourites.json");
+const { ObjectId } = require("mongodb");
+const { getDB } = require("../utils/databaseUtil");
+
 module.exports = class Favourite {
-  //Writting the favourite data to a json file in the data folder so that we can persist the data even if we restart the server
-
-  static addToFavourites(homeId, callback) {
-    Favourite.getFavourites((favourites) => {
-      if (favourites.includes(homeId)) {
-        console.log("Home is already in favourites.");
-        callback(null);
-      } else {
-        favourites.push(homeId);
-        fs.writeFile(favouriteDataPath, JSON.stringify(favourites), callback);
-      }
-    });
+  //Writting the favourite data to db
+  constructor(houseId) {
+    this.houseId = houseId;
+  }
+  save() {
+    const db = getDB();
+    return db
+      .collection("favourites")
+      .findOne({ houseId: this.houseId })
+      .then((existingFav) => {
+        if (!existingFav) {
+          return db.collection("favourites").insertOne(this);
+        }
+        return Promise.resolve();
+      });
+  }
+  static getFavourites() {
+    const db = getDB();
+    return db.collection("favourites").find().toArray();
   }
 
-  static getFavourites(callback) {
-    fs.readFile(favouriteDataPath, (err, data) => {
-      if (err || !data || data.length === 0) {
-        return callback([]);
-      }
-      try {
-        callback(JSON.parse(data));
-      } catch (e) {
-        callback([]);
-      }
-    });
-  }
-
-  static removeFavourites(homeId, callback) {
-    Favourite.getFavourites((favourites) => {
-      const updatedFavourites = favourites.filter((id) => id !== homeId);
-      if (updatedFavourites.length === favourites.length) {
-        console.log("Home was not in favourites.");
-        callback(null);
-      } else {
-        fs.writeFile(
-          favouriteDataPath,
-          JSON.stringify(updatedFavourites),
-          callback,
-        );
-      }
-    });
+  static removeFavourites(delHouseId) {
+    const db = getDB();
+    return db.collection("favourites").deleteOne({ houseId: delHouseId });
   }
 };

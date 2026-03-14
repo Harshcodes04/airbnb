@@ -1,58 +1,72 @@
-const db = require("../utils/databaseUtil");
+const { ObjectId } = require("mongodb");
+const { getDB } = require("../utils/databaseUtil");
 
 module.exports = class Home {
-  constructor(houseName, price, location, rating, photoUrl, description, id) {
+  constructor(houseName, price, location, rating, photoUrl, description, _id) {
     this.houseName = houseName;
     this.price = price;
     this.location = location;
     this.rating = rating;
     this.photoUrl = photoUrl;
     this.description = description;
-    this.id = id;
+    if (_id) {
+      this._id = _id;
+    }
   }
 
-  //Writting the home data to a json file in the data folder so that we can persist the data even if we restart the server
+  //Writting the home data to the db
   save() {
-    if (this.id) {
-      //update the existing home if id is present
-      return db.execute(
-        `UPDATE homes SET houseName = ?, price = ?, location = ?, rating = ?, photoUrl = ?, description = ? WHERE id = ?`,
-        [
-          this.houseName,
-          this.price,
-          this.location,
-          this.rating,
-          this.photoUrl,
-          this.description,
-          this.id,
-        ],
-      );
+    const db = getDB();
+    if (this._id) {
+      //update
+      const updateFields = {
+        houseName: this.houseName,
+        price: this.price,
+        location: this.location,
+        rating: this.rating,
+        photoUrl: this.photoUrl,
+        description: this.description,
+      };
+      return db
+        .collection("homes")
+        .updateOne(
+          { _id: new ObjectId(String(this._id)) },
+          { $set: updateFields },
+        );
     } else {
-      return db.execute(
-        `INSERT INTO homes(houseName, price, location, rating, photoUrl, description) VALUES(?, ?, ?, ?, ?, ?)`,
-        [
-          this.houseName,
-          this.price,
-          this.location,
-          this.rating,
-          this.photoUrl,
-          this.description,
-        ],
-      );
+      //insert
+      return db.collection("homes").insertOne(this);
     }
   }
 
   //Reading the file content so even if we restart the server we can get the previously added homes
 
   static fetchAll() {
-    return db.execute("SELECT * FROM homes ");
+    const db = getDB();
+    return db.collection("homes").find().toArray();
   }
 
   static findById(homeId) {
-    return db.execute("SELECT * FROM homes WHERE id = ?", [homeId]);
+    const db = getDB();
+    try {
+      return db
+        .collection("homes")
+        .findOne({ _id: new ObjectId(String(homeId)) });
+    } catch (error) {
+       console.log("Error converting to ObjectId", homeId);
+       return Promise.resolve(null);
+    }
   }
 
   static removeHostHome(homeId) {
-    return db.execute("DELETE FROM homes WHERE id = ?", [homeId]);
+    const db = getDB();
+    try {
+      return db
+        .collection("homes")
+        .deleteOne({ _id: new ObjectId(String(homeId)) });
+    } catch (error) {
+      console.log("Error converting to ObjectId", homeId);
+      return Promise.resolve(null);
+    }
   }
 };
