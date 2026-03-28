@@ -21,8 +21,8 @@ exports.postAddHome = (req, res, next) => {
   });
   home.save().then(() => {
     console.log("Home added successfully to the database");
+    res.redirect("/host/host-home-list");
   });
-  res.redirect("/host/host-home-list");
 };
 
 exports.getEditHome = (req, res, next) => {
@@ -51,25 +51,21 @@ exports.postEditHome = (req, res, next) => {
     req.body;
   Home.findById(id)
     .then((home) => {
-      ((home.houseName = houseName),
-        (home.price = price),
-        (home.location = location),
-        (home.rating = rating),
-        (home.photoUrl = photoUrl),
-        (home.description = description),
-        (home.id = id),
-        home
-          .save()
-          .then((result) => {
-            console.log("result:", result);
-          })
-          .catch((err) => {
-            console.log("Error while updating", err);
-          }));
+      home.houseName = houseName;
+      home.price = price;
+      home.location = location;
+      home.rating = rating;
+      home.photoUrl = photoUrl;
+      home.description = description;
+
+      return home.save();
+    })
+    .then((result) => {
+      console.log("result:", result);
       res.redirect("/host/host-home-list");
     })
     .catch((err) => {
-      console.log("error while finding the home", err);
+      console.log("Error while updating/finding the home", err);
     });
 };
 

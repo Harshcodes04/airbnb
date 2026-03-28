@@ -28,9 +28,9 @@ exports.getfavouriteList = (req, res, next) => {
   Favourite.find()
     .populate("houseId")
     .then((favourites) => {
-      const favouriteHomes = favourites.map((fav) => {
-        return fav.houseId;
-      });
+      const favouriteHomes = favourites
+        .map((fav) => fav.houseId)
+        .filter((home) => home !== null);
       res.render("store/favourite-list", {
         favouriteHomes: favouriteHomes,
         pageTitle: "Your Favourites",
@@ -61,7 +61,7 @@ exports.postRemoveFromfavourite = (req, res, next) => {
     "Received request to remove home from favourites with ID:",
     req.body,
   );
-  Favourite.findOneAndDelete(req.body.id)
+  Favourite.findOneAndDelete({ houseId: req.body.id })
     .then(() => {
       res.redirect("/favourites");
     })

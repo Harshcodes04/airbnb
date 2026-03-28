@@ -23,11 +23,11 @@ const Port = process.env.PORT || 3000;
 const DB_Util = process.env.MONGO_URI;
 mongoose
   .connect(DB_Util)
-  .then(
+  .then(() => {
     app.listen(Port, () => {
       console.log(`Server is running on port ${Port} http://localhost:${Port}`);
-    }),
-  )
+    });
+  })
   .catch((err) => {
     console.log("error while connecting to DB", err);
   });
