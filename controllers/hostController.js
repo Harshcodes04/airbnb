@@ -5,7 +5,7 @@ exports.getAddHome = (req, res, next) => {
   res.render("host/edit-home", {
     pageTitle: "Add Home to airbnb",
     editing: false,
-    isLoggedIn: req.isLoggedIn,
+    isLoggedIn: req.session.isLoggedIn,
   });
 };
 exports.postAddHome = (req, res, next) => {
@@ -42,7 +42,7 @@ exports.getEditHome = (req, res, next) => {
         home: home,
         pageTitle: "Edit Home Details",
         editing: "editing",
-        isLoggedIn: req.isLoggedIn,
+        isLoggedIn: req.session.isLoggedIn,
       });
     }
   });
@@ -76,7 +76,7 @@ exports.getHostHomes = (req, res, next) => {
     res.render("host/host-home-list", {
       registeredHomes: registeredHomes,
       pageTitle: "Host Homes list",
-      isLoggedIn: req.isLoggedIn,
+      isLoggedIn: req.session.isLoggedIn,
     });
   });
 };

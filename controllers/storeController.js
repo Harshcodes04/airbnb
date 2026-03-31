@@ -6,7 +6,7 @@ exports.getHomes = (req, res, next) => {
     res.render("store/home-list", {
       registeredHomes: registeredHomes,
       pageTitle: "Homes list",
-      isLoggedIn: req.isLoggedIn,
+      isLoggedIn: req.session.isLoggedIn,
     });
   });
 };
@@ -15,7 +15,7 @@ exports.getIndex = (req, res, next) => {
     res.render("store/index", {
       registeredHomes: registeredHomes,
       pageTitle: "airbnb Home",
-      isLoggedIn: req.isLoggedIn,
+      isLoggedIn: req.session.isLoggedIn,
     });
   });
 };
@@ -23,7 +23,7 @@ exports.getIndex = (req, res, next) => {
 exports.getbookings = (req, res, next) => {
   res.render("store/bookings", {
     pageTitle: "Your Bookings",
-    isLoggedIn: req.isLoggedIn,
+    isLoggedIn: req.session.isLoggedIn,
   });
 };
 
@@ -37,7 +37,7 @@ exports.getfavouriteList = (req, res, next) => {
       res.render("store/favourite-list", {
         favouriteHomes: favouriteHomes,
         pageTitle: "Your Favourites",
-        isLoggedIn: req.isLoggedIn,
+        isLoggedIn: req.session.isLoggedIn,
       });
     });
 };
@@ -84,7 +84,7 @@ exports.getHomeDetails = (req, res, next) => {
       res.render("store/home-detail", {
         pageTitle: "Home detail",
         home: home,
-        isLoggedIn: req.isLoggedIn,
+        isLoggedIn: req.session.isLoggedIn,
       });
     }
   });

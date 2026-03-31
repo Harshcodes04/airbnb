@@ -7,15 +7,16 @@ exports.getLogin = (req, res, next) => {
 };
 
 exports.postLogin = (req, res, next) => {
-  console.log(req.body);
-  res.cookie("isLoggedIn", "true");
+  // console.log(req.body);
+  req.session.isLoggedIn = true;
   res.redirect("/");
 };
 
 exports.postLogout = (req, res, next) => {
   //can do any of the following to clear the cookie
-  res.clearCookie("isLoggedIn");
-  //res.cookie("isLoggedIn", "false");
-
-  res.redirect("login");
+  //res.clearCookie("isLoggedIn");
+  //res.cookie("isLoggedIn", "false");\
+  req.session.destroy((err) => {
+    res.redirect("login");
+  });
 };
