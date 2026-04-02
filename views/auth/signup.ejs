@@ -1,0 +1,194 @@
+<%-include ('../partials/head') %>
+  <body class="bg-[#f8f9fa] flex flex-col min-h-screen">
+    <%-include ('../partials/nav') %>
+    
+    <main class="grow container mx-auto px-4 py-12 max-w-[600px] flex items-center justify-center">
+      
+      <div class="bg-white p-8 sm:p-10 rounded-[32px] shadow-xl border border-gray-100/50 w-full animate-fade-in-up card-glow">
+        
+        <!-- Header -->
+        <div class="mb-10 text-center flex flex-col items-center">
+          <div class="w-16 h-16 bg-gradient-to-br from-[#FF385C] to-[#E31C5F] rounded-2xl flex items-center justify-center shadow-lg shadow-red-200 mb-5 relative transform -rotate-3 hover:rotate-3 transition-transform duration-300">
+             <div class="absolute inset-0 bg-white/20 rounded-2xl"></div>
+             <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-white relative z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+            </svg>
+          </div>
+          <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight">
+            Create an account
+          </h1>
+          <p class="text-gray-500 mt-2 font-medium">
+           Join us today
+          </p>
+        </div>
+
+        <!-- Form -->
+        <form action="/signup" method="POST" class="space-y-6">
+          <% if (typeof errors !== 'undefined' && errors && errors.length > 0){%>
+              <div class="bg-red-100 border border-red-400 text-red-600 px-4 py-3 rounded relative" role="alert">
+                <strong class="font-bold">Error!</strong>
+                <ul class="mt-2 list-disc list-inside">
+                  <% errors.forEach(function(error){ %>
+                    <li><%= error %></li>
+                  <% }) %>
+                </ul>
+              </div>
+              <%}%>
+          <div class="space-y-5">
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <!-- firstname -->
+              <div class="relative group">
+                <input
+                  type="text"
+                  name="firstName"
+                  id="firstName"
+                  value="<%=oldInput.firstName? oldInput.firstName : '' %>"
+                  placeholder="First Name"
+                  required
+                  class="peer w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-2xl focus:outline-none focus:bg-white input-glow text-gray-900 font-medium placeholder-transparent transition-all"
+                />
+                <label for="firstName" class="absolute left-5 top-4 text-gray-400 font-medium transition-all peer-placeholder-shown:text-[16px] peer-placeholder-shown:top-4 peer-focus:-top-2.5 peer-focus:text-xs peer-focus:text-[#FF385C] peer-focus:bg-white peer-focus:px-1 peer-valid:-top-2.5 peer-valid:text-xs peer-valid:bg-white peer-valid:px-1 z-10 rounded">
+                  First Name
+                </label>
+              </div>
+              <!-- lastname -->
+              <div class="relative group">
+                <input
+                  type="text"
+                  name="lastName"
+                  id="lastName"
+                  value="<%=oldInput.lastName? oldInput.lastName : '' %>"
+                  placeholder="Last Name"
+                  required
+                  class="peer w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-2xl focus:outline-none focus:bg-white input-glow text-gray-900 font-medium placeholder-transparent transition-all"
+                />
+                <label for="lastName" class="absolute left-5 top-4 text-gray-400 font-medium transition-all peer-placeholder-shown:text-[16px] peer-placeholder-shown:top-4 peer-focus:-top-2.5 peer-focus:text-xs peer-focus:text-[#FF385C] peer-focus:bg-white peer-focus:px-1 peer-valid:-top-2.5 peer-valid:text-xs peer-valid:bg-white peer-valid:px-1 z-10 rounded">
+                  Last Name
+                </label>
+              </div>
+            </div>
+
+            <div class="relative group">
+              <input
+                type="email"
+                name="email"
+                id="email"
+                value="<%=oldInput.email? oldInput.email : '' %>"
+                placeholder="test@me.com"
+                required
+                class="peer w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-2xl focus:outline-none focus:bg-white input-glow text-gray-900 font-medium placeholder-transparent transition-all"
+              />
+              <label for="email" class="absolute left-5 top-4 text-gray-400 font-medium transition-all peer-placeholder-shown:text-[16px] peer-placeholder-shown:top-4 peer-focus:-top-2.5 peer-focus:text-xs peer-focus:text-[#FF385C] peer-focus:bg-white peer-focus:px-1 peer-valid:-top-2.5 peer-valid:text-xs peer-valid:bg-white peer-valid:px-1 z-10 rounded">
+                Email Address
+              </label>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <!-- Password -->
+              <div class="relative group">
+                <input
+                  type="password"
+                  name="password"
+                  id="password"
+                  placeholder="Password"
+                  required
+                  class="peer w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-2xl focus:outline-none focus:bg-white input-glow text-gray-900 font-medium placeholder-transparent transition-all"
+                />
+                <label for="password" class="absolute left-5 top-4 text-gray-400 font-medium transition-all peer-placeholder-shown:text-[16px] peer-placeholder-shown:top-4 peer-focus:-top-2.5 peer-focus:text-xs peer-focus:text-[#FF385C] peer-focus:bg-white peer-focus:px-1 peer-valid:-top-2.5 peer-valid:text-xs peer-valid:bg-white peer-valid:px-1 z-10 rounded">
+                    Password
+                </label>
+              </div>
+              <div class="relative group">
+                <input
+                  type="password"
+                  name="confirmPassword"
+                  id="confirmPassword"
+                  placeholder="Confirm Password"
+                  required
+                  class="peer w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-2xl focus:outline-none focus:bg-white input-glow text-gray-900 font-medium placeholder-transparent transition-all"
+                />
+                <label for="confirmPassword" class="absolute left-5 top-4 text-gray-400 font-medium transition-all peer-placeholder-shown:text-[16px] peer-placeholder-shown:top-4 peer-focus:-top-2.5 peer-focus:text-xs peer-focus:text-[#FF385C] peer-focus:bg-white peer-focus:px-1 peer-valid:-top-2.5 peer-valid:text-xs peer-valid:bg-white peer-valid:px-1 z-10 rounded">
+                    Confirm Password
+                </label>
+              </div>
+            </div>
+
+            <!-- Role Choices -->
+            <div class="pt-2">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                
+                <label class="relative flex items-center justify-between p-4 border border-gray-200 rounded-2xl shadow-sm cursor-pointer transition-all hover:border-[#FF385C] hover:shadow-md bg-white">
+                  <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-full bg-red-50 flex items-center justify-center text-[#FF385C]">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                         <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h3 class="font-bold text-gray-900 leading-tight">Guest</h3>
+                      <p class="text-xs text-gray-500 font-medium mt-0.5">Book places</p>
+                    </div>
+                  </div>
+                  <div class="pl-2">
+                    <input type="radio" name="userType" checked="<%= oldInput.userType === 'guest' ? 'checked' : '' %>" required class="w-5 h-5 accent-[#FF385C] cursor-pointer">
+                  </div>
+                </label>
+
+                <label class="relative flex items-center justify-between p-4 border border-gray-200 rounded-2xl shadow-sm cursor-pointer transition-all hover:border-[#FF385C] hover:shadow-md bg-white">
+                  <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-full bg-red-50 flex items-center justify-center text-[#FF385C]">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h3 class="font-bold text-gray-900 leading-tight">Host</h3>
+                      <p class="text-xs text-gray-500 font-medium mt-0.5">List a place</p>
+                    </div>
+                  </div>
+                  <div class="pl-2">
+                    <input type="radio" name="userType" value="host" checked="<%= oldInput.userType === 'host' ? 'checked' : '' %>" required class="w-5 h-5 accent-[#FF385C] cursor-pointer">
+                  </div> 
+                </label>
+
+              </div>
+            </div>
+             
+          </div>
+
+          <!-- Terms of Service -->
+          <div class="flex items-center gap-3 mt-2">
+            <input type="checkbox" name="terms" id="terms" class="w-[18px] h-[18px] accent-[#FF385C] cursor-pointer" required>
+            <label for="terms" class="text-sm text-gray-500 cursor-pointer">
+              I agree to the <a href="#" class="text-[#FF385C] font-semibold hover:underline">Terms of Service</a>
+            </label>
+          </div>
+
+          <!-- Sign up Button -->
+          <div class="pt-4">
+            <button
+              type="submit"
+              id="signupBtn"
+              class="w-full flex justify-center items-center gap-2 bg-gradient-to-r from-[#FF385C] to-[#E31C5F] hover:from-[#E31C5F] hover:to-[#c4173f] text-white font-bold py-4 px-6 rounded-2xl shadow-lg hover:shadow-xl shadow-red-500/30 transition-all duration-300 hover:-translate-y-1 text-lg"
+            >
+              Sign up
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </button>
+          </div>
+
+          <!-- Login link -->
+          <p class="text-center text-sm text-gray-500 mt-2">
+            Already have an account?
+            <a href="/login" class="text-[#FF385C] font-semibold hover:underline">Log in</a>
+          </p>
+
+        </form>
+      </div>
+    </main>
+
+   <%- include ('../partials/footer') %>
+  </body>
+</html>
