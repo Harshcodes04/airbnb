@@ -24,20 +24,22 @@
 
       <!-- Form -->
       <form action="/login" method="POST" class="space-y-6">
+        <%- include('../partials/errors') %>
         <div class="space-y-5">
           
-            <!-- username -->
+            <!-- email -->
           <div class="relative group">
             <input
-              type="text"
-              name="username"
-              id="username"
-              placeholder="Username"
+              type="email"
+              name="email"
+              id="email"
+              value="<%=oldInput.email? oldInput.email : '' %>"
+              placeholder="test@hehe.com"
               required
                 class="peer w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-2xl focus:outline-none focus:bg-white input-glow text-gray-900 font-medium placeholder-transparent transition-all"
             />
-              <label for="username" class="absolute left-5 top-4 text-gray-400 font-medium transition-all peer-placeholder-shown:text-[16px] peer-placeholder-shown:top-4 peer-focus:-top-2.5 peer-focus:text-xs peer-focus:text-[#FF385C] peer-focus:bg-white peer-focus:px-1 peer-valid:-top-2.5 peer-valid:text-xs peer-valid:bg-white peer-valid:px-1 z-10 rounded">
-              Email or Username
+              <label for="email" class="absolute left-5 top-4 text-gray-400 font-medium transition-all peer-placeholder-shown:text-[16px] peer-placeholder-shown:top-4 peer-focus:-top-2.5 peer-focus:text-xs peer-focus:text-[#FF385C] peer-focus:bg-white peer-focus:px-1 peer-valid:-top-2.5 peer-valid:text-xs peer-valid:bg-white peer-valid:px-1 z-10 rounded">
+              Email
             </label>
           </div>
 

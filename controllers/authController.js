@@ -7,21 +7,51 @@ exports.getLogin = (req, res, next) => {
   res.render("auth/login", {
     pageTitle: "Login to airbnb",
     isLoggedIn: false,
+    errors: [],
+    oldInput: { email: "" },
   });
 };
 
-exports.postLogin = (req, res, next) => {
-  // console.log(req.body);
+exports.postLogin = async (req, res, next) => {
+  const { email, password } = req.body;
+  const user = await User.findOne({ email });
+  if (!user) {
+    return res.status(422).render("auth/login", {
+      pageTitle: "Login to airbnb",
+      isLoggedIn: false,
+      errors: ["Invalid email or password"],
+      oldInput: { email: email },
+    });
+  }
+  const isMatch = await bcrypt.compare(password, user.password);
+  if (!isMatch) {
+    return res.status(422).render("auth/login", {
+      pageTitle: "Login to airbnb",
+      isLoggedIn: false,
+      errors: ["Invalid email or password"],
+      oldInput: { email: email },
+    });
+  }
   req.session.isLoggedIn = true;
-  res.redirect("/");
+  req.session.user = user;
+  req.session.save((err) => {
+    if (err) {
+      console.log("Session save error", err);
+    }
+    res.redirect("/");
+  });
 };
 
 exports.postLogout = (req, res, next) => {
   //can do any of the following to clear the cookie
   //res.clearCookie("isLoggedIn");
   //res.cookie("isLoggedIn", "false");\
+  //Now we are not even using cookies directly, we are using sessions, so we need to destroy the session
   req.session.destroy((err) => {
-    res.redirect("login");
+    if (err) {
+      console.log("Error saving the session", err);
+    }
+    res.redirect("/login");
   });
 };
 
