@@ -24,7 +24,7 @@ const store = new MongoDBStore({
 app.use(express.static(path.join(rootDir, "public")));
 app.use(
   session({
-    secret: "hehehaha",
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
     store: store,

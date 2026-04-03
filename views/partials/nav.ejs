@@ -27,70 +27,68 @@
         </div>
 
         <!-- Navigation Links (Desktop) -->
-      <%if (isLoggedIn){%>
         <div
           class="hidden md:flex items-center gap-2 bg-white/10 backdrop-blur-md p-1.5 rounded-full border border-white/20 shadow-inner"
           id="nav-links"
         >
-          <a
-            href="/"
-            class="nav-link text-white hover:bg-white/20 px-5 py-2.5 rounded-full font-semibold transition-all duration-300"
-            >Home</a
-          >
-          <a
-            href="/homes"
-            class="nav-link text-white hover:bg-white/20 px-5 py-2.5 rounded-full font-semibold transition-all duration-300"
-            >Homes List</a
-          >
-          <a
-            href="/bookings"
-            class="nav-link text-white hover:bg-white/20 px-5 py-2.5 rounded-full font-semibold transition-all duration-300"
-            >Bookings</a
-          >
-          <a
-            href="/favourites"
-            class="nav-link text-white hover:bg-white/20 px-5 py-2.5 rounded-full font-semibold transition-all duration-300"
-            >Favourites</a
-          >
-
-          <div class="w-px h-6 bg-white/30 mx-2"></div>
-
-          <a
-            href="/host/host-home-list"
-            class="nav-link text-white hover:bg-white/20 px-5 py-2.5 rounded-full font-semibold transition-all duration-300"
-            >Host Homes</a
-          >
-          <a
-            href="/host/add-home"
-            class="nav-link text-white hover:bg-white/20 px-5 py-2.5 rounded-full font-semibold transition-all duration-300"
-            >Add Home</a
-          >
-        </div>
-      <% }%>  
-        <div
-          class="hidden md:flex items-center gap-2 bg-white/10 backdrop-blur-md p-1.5 rounded-full border border-white/20 shadow-inner"
-          id="nav-links"
-        >
-        <% if (!isLoggedIn){%>
-          <a
-            href="/login"
-            class="nav-link text-white hover:bg-white/20 px-5 py-2.5 rounded-full font-semibold transition-all duration-300"
-            >Login</a>
+          <% if (!isLoggedIn) { %>
             <a
-            href="/signup"
-            class="nav-link text-white hover:bg-white/20 px-5 py-2.5 rounded-full font-semibold transition-all duration-300"
-            >Sign Up</a>
-        <%} else{ %>
-          <form action="/logout" method="POST">
-            <button
-            type="submit"
-            class="nav-link text-white hover:bg-white/20 px-5 py-2.5 rounded-full font-semibold transition-all duration-300"
-            >Logout
-          </button>
-          </form>
-          
-            <%}%>
-        
+              href="/login"
+              class="nav-link text-white hover:bg-white/20 px-5 py-2.5 rounded-full font-semibold transition-all duration-300"
+              >Login</a
+            >
+            <a
+              href="/signup"
+              class="nav-link text-white hover:bg-white/20 px-5 py-2.5 rounded-full font-semibold transition-all duration-300"
+              >Sign Up</a
+            >
+          <% } else if (user && user.userType === "guest") { %>
+            <a
+              href="/"
+              class="nav-link text-white hover:bg-white/20 px-5 py-2.5 rounded-full font-semibold transition-all duration-300"
+              >Home</a
+            >
+            <a
+              href="/homes"
+              class="nav-link text-white hover:bg-white/20 px-5 py-2.5 rounded-full font-semibold transition-all duration-300"
+              >Homes List</a
+            >
+            <a
+              href="/bookings"
+              class="nav-link text-white hover:bg-white/20 px-5 py-2.5 rounded-full font-semibold transition-all duration-300"
+              >Bookings</a
+            >
+            <a
+              href="/favourites"
+              class="nav-link text-white hover:bg-white/20 px-5 py-2.5 rounded-full font-semibold transition-all duration-300"
+              >Favourites</a
+            >
+            <div class="w-px h-6 bg-white/30 mx-2"></div>
+            <form action="/logout" method="POST">
+              <button
+                type="submit"
+                class="nav-link text-white hover:bg-white/20 px-5 py-2.5 rounded-full font-semibold transition-all duration-300"
+              >Logout</button>
+            </form>
+          <% } else { %>
+            <a
+              href="/host/host-home-list"
+              class="nav-link text-white hover:bg-white/20 px-5 py-2.5 rounded-full font-semibold transition-all duration-300"
+              >Host Homes</a
+            >
+            <a
+              href="/host/add-home"
+              class="nav-link text-white hover:bg-white/20 px-5 py-2.5 rounded-full font-semibold transition-all duration-300"
+              >Add Home</a
+            >
+            <div class="w-px h-6 bg-white/30 mx-2"></div>
+            <form action="/logout" method="POST">
+              <button
+                type="submit"
+                class="nav-link text-white hover:bg-white/20 px-5 py-2.5 rounded-full font-semibold transition-all duration-300"
+              >Logout</button>
+            </form>
+          <% } %>
         </div>
 
         <!-- Mobile Menu Button -->

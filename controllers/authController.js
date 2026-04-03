@@ -9,6 +9,7 @@ exports.getLogin = (req, res, next) => {
     isLoggedIn: false,
     errors: [],
     oldInput: { email: "" },
+    user: {},
   });
 };
 
@@ -21,6 +22,7 @@ exports.postLogin = async (req, res, next) => {
       isLoggedIn: false,
       errors: ["Invalid email or password"],
       oldInput: { email: email },
+      user: {},
     });
   }
   const isMatch = await bcrypt.compare(password, user.password);
@@ -30,10 +32,17 @@ exports.postLogin = async (req, res, next) => {
       isLoggedIn: false,
       errors: ["Invalid email or password"],
       oldInput: { email: email },
+      user: {},
     });
   }
   req.session.isLoggedIn = true;
-  req.session.user = user;
+  const sessionUser = user.toObject();
+  sessionUser._id = sessionUser._id.toString();
+  // Convert any ObjectId arrays (like favourites) to plain strings
+  if (sessionUser.favourites) {
+    sessionUser.favourites = sessionUser.favourites.map((id) => id.toString());
+  }
+  req.session.user = sessionUser;
   req.session.save((err) => {
     if (err) {
       console.log("Session save error", err);
@@ -66,6 +75,7 @@ exports.getSignup = (req, res, next) => {
       lastName: "",
       email: "",
       userType: "",
+      user: {},
     },
   });
 };

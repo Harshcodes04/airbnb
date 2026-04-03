@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const Favourite = require("./favourite");
 
 const homeSchema = mongoose.Schema({
   houseName: { type: String, required: true },
@@ -11,9 +10,9 @@ const homeSchema = mongoose.Schema({
 });
 
 //prehook -- if admin removed the home then it should be removed from favourites as well
-homeSchema.pre("findOneAndDelete", async function () {
-  const homeId = this.getQuery()._id;
-  await Favourite.deleteMany({ houseId: homeId });
-});
+// homeSchema.pre("findOneAndDelete", async function () {
+//   const homeId = this.getQuery()._id;
+//   await Favourite.deleteMany({ houseId: homeId });
+// });
 
 module.exports = mongoose.model("Home", homeSchema);
