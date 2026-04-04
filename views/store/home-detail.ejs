@@ -39,7 +39,7 @@
         <div class="mb-12 relative rounded-[32px] overflow-hidden group shadow-xl shadow-gray-200/50 block animate-fade-in-up stagger-1">
           <div class="aspect-[16/9] md:aspect-[21/9] w-full img-shimmer relative">
             <img 
-              src="<%= home.photoUrl %>" 
+              src="<%= home.photo %>" 
               alt="<%= home.houseName %>"
               class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 ease-out"
               onload="this.parentElement.classList.remove('img-shimmer')"
@@ -132,7 +132,8 @@
                 <p class="text-[16px] text-gray-700 leading-relaxed mb-6"><%= home.address %></p>
                <% } %>
                <p class="text-[16px] text-gray-700 leading-relaxed max-w-3xl">
-                 Welcome to our stunning <%= home.houseName %>, a perfect blend of modern luxury and cozy comfort nestled in the heart of <%= home.location %>. Whether you're seeking a peaceful retreat or a convenient base camp for your adventures, our space offers everything you need for an unforgettable stay. Relax, unwind, and immerse yourself in an atmosphere designed entirely around your well-being.
+                 Welcome to our stunning <%= home.houseName %>, a perfect blend of modern luxury and cozy comfort nestled in the heart of <%= home.location %>.<%= home.description || '' %>
+
                </p>
                <button class="mt-6 font-bold underline flex items-center gap-1 hover:text-gray-600 transition-colors group">
                  Show more
