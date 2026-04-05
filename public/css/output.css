@@ -1493,11 +1493,6 @@
       color: var(--color-red-900);
     }
   }
-  .file\:mr-4 {
-    &::file-selector-button {
-      margin-right: calc(var(--spacing) * 4);
-    }
-  }
   .file\:ml-auto {
     &::file-selector-button {
       margin-left: auto;
